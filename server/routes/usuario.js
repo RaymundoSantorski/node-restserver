@@ -1,15 +1,18 @@
+/* requires */
 const express = require('express');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const app = express();
 const Usuario = require('../models/usuario');
+const { verificaToken, verificaAdmin_Role } = require('../middlewares/autenticacion');
 const usuario = require('../models/usuario');
 
+/* routes */
 app.get('/', (req, res) => {
     res.json('Hola Mundo');
 });
 
-app.get('/usuario', (req, res) => {
+app.get('/usuario', verificaToken, (req, res) => {
 
     let desde = Number(req.query.desde || 0);
     let limite = Number(req.query.limite || 5);
@@ -34,7 +37,8 @@ app.get('/usuario', (req, res) => {
         });
 });
 
-app.post('/usuario', (req, res) => {
+app.post('/usuario', [verificaToken, verificaAdmin_Role], (req, res) => {
+
     let body = req.body;
     let usuario = new Usuario({
         nombre: body.nombre,
@@ -57,7 +61,8 @@ app.post('/usuario', (req, res) => {
     });
 });
 
-app.put('/usuario/:id', (req, res) => {
+app.put('/usuario/:id', [verificaToken, verificaAdmin_Role], (req, res) => {
+
     let id = req.params.id;
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
 
@@ -75,7 +80,7 @@ app.put('/usuario/:id', (req, res) => {
     });
 });
 
-app.delete('/usuario/:id', (req, res) => {
+app.delete('/usuario/:id', verificaToken, (req, res) => {
 
     let id = req.params.id;
     let data = {
@@ -131,4 +136,5 @@ app.delete('/usuario/:id', (req, res) => {
 
 });
 
+/* exports */
 module.exports = app;
