@@ -8,10 +8,6 @@ const { verificaToken, verificaAdmin_Role } = require('../middlewares/autenticac
 const usuario = require('../models/usuario');
 
 /* routes */
-app.get('/', (req, res) => {
-    res.json('Hola Mundo');
-});
-
 app.get('/usuario', verificaToken, (req, res) => {
 
     let desde = Number(req.query.desde || 0);

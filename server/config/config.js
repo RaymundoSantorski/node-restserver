@@ -1,5 +1,5 @@
 /* Puerto */
-process.env.PORT = process.env.PORT || 3000;
+process.env.PORT = process.env.PORT || 5000;
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 /* Vencimiento de token */
@@ -18,3 +18,6 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 process.env.URLDB = urlDB;
+
+/* Google Client Id */
+process.env.CLIENT_ID = process.env.CLIENT_ID || '477323273207-9it7mn1tdjcejbil2jn24qho78lttmcg.apps.googleusercontent.com';
