@@ -11,7 +11,7 @@ let Schema = mongoose.Schema;
 let usuarioSchema = new Schema({
     nombre: {
         type: String,
-        requires: [true, 'El nombre es necesario']
+        required: [true, 'El nombre es necesario']
     },
     email: {
         type: String,
